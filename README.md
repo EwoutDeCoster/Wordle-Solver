@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wordle Solver
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-First, run the development server:
+An entropy-based Wordle assistant that calculates the optimal next guess using information theory.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Information Theory Algorithm**: Uses Shannon entropy to identify guesses that maximize information gain.
+-   **Interactive Grid**: Input guesses and toggle tile colors to match your current Wordle game.
+-   **Dynamic Filtering**: Real-time solution narrowing based on provided feedback.
+-   **State Management**: Support for undoing guesses and resetting the game state.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+### Dashboard
+Initial view showing the optimal starting words.
+![Main View](./public/screenshots/main_view.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Solver in Progress
+Real-time suggestions based on current feedback.
+![Active Solving](./public/screenshots/active_solving.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   Node.js (v18+)
+-   npm
+
+### Setup
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/ewoutdc/wordle-solver.git
+    cd wordle-solver
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Run development server**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Access the application**
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## Technical Overview
+
+The solver identifies the optimal guess by calculating the **Shannon Entropy** of each candidate word.
+
+1.  **Probability Distribution**: For every word, the algorithm determines the probability of receiving each of the 243 possible feedback patterns (3^5).
+2.  **Entropy Calculation**:
+    $$E[I] = \sum_{p \in Patterns} P(p) \log_2\left(\frac{1}{P(p)}\right)$$
+3.  **Selection**: The words are ranked by expected information gain (bits). Guesses that are potential solutions receive a slight priority when entropy values are near-identical.
+
+---
+
+## Tech Stack
+
+-   **Framework**: Next.js 16 (App Router)
+-   **Styling**: Tailwind CSS
+-   **Components**: Radix UI, Lucide
+-   **Logic**: TypeScript
+
+---
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
